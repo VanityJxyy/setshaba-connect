@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
+import { theme } from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
 
 const SignupScreen = ({ navigation }) => {
@@ -169,7 +170,7 @@ const SignupScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.background,
   },
   keyboardView: {
     flex: 1,
@@ -177,33 +178,33 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     justifyContent: 'center',
-    padding: 24,
+    padding: theme.spacing.lg,
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: theme.spacing.xxl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8,
+    fontSize: theme.fonts.sizes.xxxl,
+    fontWeight: theme.fonts.weights.bold,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.sm,
   },
   subtitle: {
-    fontSize: 16,
-    color: '#666',
+    fontSize: theme.fonts.sizes.md,
+    color: theme.colors.textSecondary,
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: theme.fonts.sizes.lg + 6,
   },
   form: {
     width: '100%',
   },
   signupButton: {
-    marginTop: 8,
-    marginBottom: 16,
+    marginTop: theme.spacing.sm,
+    marginBottom: theme.spacing.md,
   },
   loginButton: {
-    marginTop: 8,
+    marginTop: theme.spacing.sm,
   },
 });
 

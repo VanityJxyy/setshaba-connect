@@ -2,6 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import Header from '../components/common/Header';
+import { theme } from '../config/theme';
 
 // Screens
 import ReportsScreen from '../screens/main/ReportsScreen';
@@ -14,28 +16,63 @@ import MyReportsScreen from '../screens/main/MyReportsScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+// Common header component with quick report button
+const getHeaderComponent = (navigation) => ({
+  header: () => (
+    <Header
+      rightButton={true}
+      onRightButtonPress={() => navigation.navigate('CreateReport')}
+      rightButtonIcon="add"
+    />
+  ),
+});
+
 // Stack navigators for each tab
-const ReportsStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+const ReportsStack = ({ navigation }) => (
+  <Stack.Navigator screenOptions={getHeaderComponent(navigation)}>
     <Stack.Screen name="ReportsList" component={ReportsScreen} />
-    <Stack.Screen name="ReportDetail" component={ReportDetailScreen} />
-    <Stack.Screen name="CreateReport" component={CreateReportScreen} />
+    <Stack.Screen 
+      name="ReportDetail" 
+      component={ReportDetailScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen 
+      name="CreateReport" 
+      component={CreateReportScreen}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 );
 
-const MapStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+const MapStack = ({ navigation }) => (
+  <Stack.Navigator screenOptions={getHeaderComponent(navigation)}>
     <Stack.Screen name="MapView" component={MapScreen} />
-    <Stack.Screen name="ReportDetail" component={ReportDetailScreen} />
+    <Stack.Screen 
+      name="ReportDetail" 
+      component={ReportDetailScreen}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 );
 
-const ProfileStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+const ProfileStack = ({ navigation }) => (
+  <Stack.Navigator screenOptions={getHeaderComponent(navigation)}>
     <Stack.Screen name="ProfileView" component={ProfileScreen} />
-    <Stack.Screen name="MyReports" component={MyReportsScreen} />
-    <Stack.Screen name="CreateReport" component={CreateReportScreen} />
-    <Stack.Screen name="ReportDetail" component={ReportDetailScreen} />
+    <Stack.Screen 
+      name="MyReports" 
+      component={MyReportsScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen 
+      name="CreateReport" 
+      component={CreateReportScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen 
+      name="ReportDetail" 
+      component={ReportDetailScreen}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 );
 
@@ -56,36 +93,36 @@ const MainNavigator = () => {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#2196F3',
-        tabBarInactiveTintColor: '#666',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.textSecondary,
         tabBarStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: theme.colors.surface,
           borderTopWidth: 1,
-          borderTopColor: '#eee',
-          paddingBottom: 5,
-          paddingTop: 5,
+          borderTopColor: theme.colors.border,
+          paddingBottom: theme.spacing.xs + 1,
+          paddingTop: theme.spacing.xs + 1,
           height: 60,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
+          fontSize: theme.fonts.sizes.xs,
+          fontWeight: theme.fonts.weights.medium,
         },
         headerShown: false,
       })}
     >
       <Tab.Screen 
         name="Reports" 
-        component={ReportsStack}
+        children={({ navigation }) => <ReportsStack navigation={navigation} />}
         options={{ tabBarLabel: 'Reports' }}
       />
       <Tab.Screen 
         name="Map" 
-        component={MapStack}
+        children={({ navigation }) => <MapStack navigation={navigation} />}
         options={{ tabBarLabel: 'Map' }}
       />
       <Tab.Screen 
         name="Profile" 
-        component={ProfileStack}
+        children={({ navigation }) => <ProfileStack navigation={navigation} />}
         options={{ tabBarLabel: 'Profile' }}
       />
     </Tab.Navigator>

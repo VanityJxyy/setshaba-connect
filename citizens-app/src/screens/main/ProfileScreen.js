@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
+import { theme } from '../../config/theme';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage';
 import { useAuth } from '../../hooks/useAuth';
@@ -129,24 +130,24 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Profile</Text>
-        <TouchableOpacity
-          style={styles.editButton}
-          onPress={() => setIsEditing(!isEditing)}
-        >
-          <Ionicons 
-            name={isEditing ? 'close' : 'pencil'} 
-            size={20} 
-            color="#2196F3" 
-          />
-        </TouchableOpacity>
-      </View>
-
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Profile</Text>
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() => setIsEditing(!isEditing)}
+          >
+            <Ionicons 
+              name={isEditing ? 'close' : 'pencil'} 
+              size={20} 
+              color={theme.colors.primary} 
+            />
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.profileHeader}>
           <View style={styles.avatar}>
-            <Ionicons name="person" size={48} color="#fff" />
+            <Ionicons name="person" size={48} color={theme.colors.white} />
           </View>
           <Text style={styles.email}>{profile?.email}</Text>
           <Text style={styles.role}>Citizen</Text>
@@ -244,114 +245,113 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: theme.colors.background,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    paddingHorizontal: theme.spacing.lg - 4,
+    paddingVertical: theme.spacing.md,
+    backgroundColor: theme.colors.surface,
+    marginBottom: theme.spacing.md,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: theme.fonts.sizes.xxl,
+    fontWeight: theme.fonts.weights.bold,
+    color: theme.colors.text,
   },
   editButton: {
-    padding: 8,
+    padding: theme.spacing.sm,
   },
   content: {
     flex: 1,
   },
   profileHeader: {
     alignItems: 'center',
-    padding: 32,
-    backgroundColor: '#fff',
-    marginBottom: 16,
+    padding: theme.spacing.xl,
+    backgroundColor: theme.colors.surface,
+    marginBottom: theme.spacing.md,
   },
   avatar: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#2196F3',
+    backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: theme.spacing.md,
   },
   email: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 4,
+    fontSize: theme.fonts.sizes.lg,
+    fontWeight: theme.fonts.weights.semibold,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.xs,
   },
   role: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: theme.fonts.sizes.sm,
+    color: theme.colors.textSecondary,
     textTransform: 'capitalize',
   },
   form: {
-    backgroundColor: '#fff',
-    padding: 20,
-    marginBottom: 16,
+    backgroundColor: theme.colors.surface,
+    padding: theme.spacing.lg - 4,
+    marginBottom: theme.spacing.md,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 16,
+    marginTop: theme.spacing.md,
   },
   saveButton: {
     flex: 1,
-    marginRight: 8,
+    marginRight: theme.spacing.sm,
   },
   cancelButton: {
     flex: 1,
-    marginLeft: 8,
+    marginLeft: theme.spacing.sm,
   },
   infoContainer: {
-    gap: 20,
+    gap: theme.spacing.lg - 4,
   },
   infoItem: {
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    paddingBottom: 12,
+    borderBottomColor: theme.colors.border,
+    paddingBottom: theme.spacing.sm + 4,
   },
   infoLabel: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
+    fontSize: theme.fonts.sizes.sm,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.xs,
   },
   infoValue: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
+    fontSize: theme.fonts.sizes.md,
+    color: theme.colors.text,
+    fontWeight: theme.fonts.weights.medium,
   },
   actions: {
-    backgroundColor: '#fff',
-    marginBottom: 32,
+    backgroundColor: theme.colors.surface,
+    marginBottom: theme.spacing.xl,
   },
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    padding: theme.spacing.lg - 4,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: theme.colors.border,
   },
   actionText: {
     flex: 1,
-    marginLeft: 16,
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
+    marginLeft: theme.spacing.md,
+    fontSize: theme.fonts.sizes.md,
+    color: theme.colors.text,
+    fontWeight: theme.fonts.weights.medium,
   },
   signOutButton: {
     borderBottomWidth: 0,
   },
   signOutText: {
-    color: '#F44336',
+    color: theme.colors.error,
   },
 });
 

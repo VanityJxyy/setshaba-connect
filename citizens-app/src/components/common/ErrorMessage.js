@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { theme } from '../../config/theme';
 
 const ErrorMessage = ({ 
   message = 'Something went wrong', 
@@ -9,7 +10,7 @@ const ErrorMessage = ({
 }) => {
   return (
     <View style={styles.container}>
-      <Ionicons name="alert-circle-outline" size={48} color="#F44336" />
+      <Ionicons name="alert-circle-outline" size={48} color={theme.colors.error} />
       <Text style={styles.message}>{message}</Text>
       {onRetry && (
         <TouchableOpacity style={styles.retryButton} onPress={onRetry}>
@@ -25,26 +26,27 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: theme.spacing.lg - 4,
+    backgroundColor: theme.colors.background,
   },
   message: {
-    marginTop: 16,
-    marginBottom: 20,
-    fontSize: 16,
-    color: '#666',
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.lg - 4,
+    fontSize: theme.fonts.sizes.md,
+    color: theme.colors.textSecondary,
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: theme.fonts.sizes.lg + 6,
   },
   retryButton: {
-    backgroundColor: '#2196F3',
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
+    backgroundColor: theme.colors.primary,
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.sm + 4,
+    borderRadius: theme.borderRadius.md,
   },
   retryText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: theme.colors.white,
+    fontSize: theme.fonts.sizes.md,
+    fontWeight: theme.fonts.weights.semibold,
   },
 });
 

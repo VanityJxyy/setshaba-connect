@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { theme } from '../../config/theme';
 
 const Input = ({
   label,
@@ -66,42 +67,42 @@ const Input = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    marginBottom: theme.spacing.md,
   },
   label: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
+    fontSize: theme.fonts.sizes.md,
+    fontWeight: theme.fonts.weights.semibold,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.sm,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    backgroundColor: '#fff',
+    borderColor: theme.colors.border,
+    borderRadius: theme.borderRadius.md,
+    backgroundColor: theme.colors.surface,
   },
   focused: {
-    borderColor: '#2196F3',
+    borderColor: theme.colors.primary,
   },
   error: {
-    borderColor: '#F44336',
+    borderColor: theme.colors.error,
   },
   input: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 16,
-    color: '#333',
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.sm + 4,
+    fontSize: theme.fonts.sizes.md,
+    color: theme.colors.text,
   },
   eyeIcon: {
-    padding: 12,
+    padding: theme.spacing.sm + 4,
   },
   errorText: {
-    marginTop: 4,
-    fontSize: 14,
-    color: '#F44336',
+    marginTop: theme.spacing.xs,
+    fontSize: theme.fonts.sizes.sm,
+    color: theme.colors.error,
   },
 });
 

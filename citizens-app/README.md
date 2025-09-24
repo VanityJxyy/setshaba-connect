@@ -91,19 +91,28 @@ src/
    npm install
    ```
 
-3. **Configure Supabase**
-   - Update `src/config/supabase.js` with your Supabase project URL and anon key
-   - Update `src/config/api.js` with your backend API URL
+3. **Configure Environment Variables**
+   - Update `app.json` in the `extra` section with your environment variables:
+     - `API_BASE_URL`: Your backend API URL
+     - `SUPABASE_URL`: Your Supabase project URL
+     - `SUPABASE_ANON_KEY`: Your Supabase anonymous key
+   - Alternatively, create a `.env` file with these variables
 
 4. **Start the development server**
    ```bash
    npm start
+   # or for a clean start
+   expo start -c
    ```
 
 5. **Run on device/emulator**
    - Install Expo Go app on your mobile device
    - Scan the QR code from the terminal
    - Or press 'a' for Android emulator, 'i' for iOS simulator
+
+### Assets
+
+Make sure to place your app icon at `src/assets/icon.png` (1024x1024 PNG recommended).
 
 ### Building for Production
 

@@ -54,6 +54,28 @@ class AuthService {
     }
   }
 
+  async forgotPassword(email) {
+    try {
+      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.FORGOT_PASSWORD}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send reset link');
+      }
+
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async logout() {
     try {
       await supabase.auth.signOut();

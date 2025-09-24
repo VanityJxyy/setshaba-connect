@@ -12,37 +12,46 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { theme } from '../../config/theme';
-import { useAuth } from '../../hooks/useAuth';
+import authService from '../../services/authService';
 
-const LoginScreen = ({ navigation }) => {
+const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
 
-  const handleLogin = async () => {
-    if (!email.trim() || !password.trim()) {
-      Alert.alert('Error', 'Please fill in all fields');
+  const handleForgotPassword = async () => {
+    if (!email.trim()) {
+      Alert.alert('Error', 'Please enter your email address');
+      return;
+    }
+
+    if (!email.includes('@')) {
+      Alert.alert('Error', 'Please enter a valid email address');
       return;
     }
 
     try {
       setLoading(true);
-      await signIn(email.trim(), password);
-      // Navigation will be handled by the auth state change
+      await authService.forgotPassword(email.trim());
+      
+      Alert.alert(
+        'Reset Link Sent',
+        'If an account with this email exists, you will receive a password reset link shortly.',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.goBack(),
+          },
+        ]
+      );
     } catch (error) {
-      Alert.alert('Login Failed', error.message);
+      Alert.alert('Error', error.message || 'Failed to send reset link');
     } finally {
       setLoading(false);
     }
   };
 
-  const navigateToSignup = () => {
-    navigation.navigate('Signup');
-  };
-
-  const navigateToForgotPassword = () => {
-    navigation.navigate('ForgotPassword');
+  const navigateToLogin = () => {
+    navigation.goBack();
   };
 
   return (
@@ -53,49 +62,35 @@ const LoginScreen = ({ navigation }) => {
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <View style={styles.header}>
-            <Text style={styles.title}>Welcome Back</Text>
+            <Text style={styles.title}>Forgot Password</Text>
             <Text style={styles.subtitle}>
-              Sign in to report issues in your community
+              Enter your email address and we'll send you a link to reset your password
             </Text>
           </View>
 
           <View style={styles.form}>
             <Input
-              label="Email"
+              label="Email Address"
               value={email}
               onChangeText={setEmail}
               placeholder="Enter your email"
               keyboardType="email-address"
               autoCapitalize="none"
-            />
-
-            <Input
-              label="Password"
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Enter your password"
-              secureTextEntry
+              autoComplete="email"
             />
 
             <Button
-              title="Sign In"
-              onPress={handleLogin}
+              title="Send Reset Link"
+              onPress={handleForgotPassword}
               loading={loading}
-              style={styles.loginButton}
+              style={styles.resetButton}
             />
 
             <Button
-              title="Forgot Password?"
-              onPress={navigateToForgotPassword}
-              variant="outline"
-              style={styles.forgotButton}
-            />
-
-            <Button
-              title="Don't have an account? Sign Up"
-              onPress={navigateToSignup}
+              title="Back to Login"
+              onPress={navigateToLogin}
               variant="secondary"
-              style={styles.signupButton}
+              style={styles.backButton}
             />
           </View>
         </ScrollView>
@@ -136,16 +131,13 @@ const styles = StyleSheet.create({
   form: {
     width: '100%',
   },
-  loginButton: {
+  resetButton: {
     marginTop: theme.spacing.sm,
     marginBottom: theme.spacing.md,
   },
-  forgotButton: {
-    marginBottom: theme.spacing.md,
-  },
-  signupButton: {
+  backButton: {
     marginTop: theme.spacing.sm,
   },
 });
 
-export default LoginScreen;
+export default ForgotPasswordScreen;

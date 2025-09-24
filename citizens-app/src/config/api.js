@@ -1,12 +1,13 @@
 // API Configuration
-import { API_URL } from '@env';
+import { ENV } from './constants';
 
-export const API_BASE_URL = API_URL;
+export const API_BASE_URL = ENV.API_BASE_URL;
 
 export const API_ENDPOINTS = {
   // Auth
   REGISTER: '/auth/register',
   LOGIN: '/auth/login',
+  FORGOT_PASSWORD: '/auth/forgot-password',
   
   // Users
   USER_PROFILE: '/users/me',

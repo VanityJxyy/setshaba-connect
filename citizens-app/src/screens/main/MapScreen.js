@@ -9,6 +9,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MapView, { Marker, Polygon } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
+import { theme } from '../../config/theme';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import ErrorMessage from '../../components/common/ErrorMessage';
 import { useLocation } from '../../hooks/useLocation';
@@ -141,16 +142,6 @@ const MapScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Community Map</Text>
-        <TouchableOpacity
-          style={styles.refreshButton}
-          onPress={loadMapData}
-        >
-          <Ionicons name="refresh" size={20} color="#2196F3" />
-        </TouchableOpacity>
-      </View>
-
       <MapView
         style={styles.map}
         region={mapRegion}
@@ -191,56 +182,31 @@ const MapScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  refreshButton: {
-    padding: 8,
+    backgroundColor: theme.colors.surface,
   },
   map: {
     flex: 1,
   },
   legend: {
     position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    bottom: theme.spacing.lg - 4,
+    left: theme.spacing.lg - 4,
+    right: theme.spacing.lg - 4,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.lg,
+    padding: theme.spacing.md,
+    ...theme.shadows.medium,
   },
   legendTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 12,
+    fontSize: theme.fonts.sizes.md,
+    fontWeight: theme.fonts.weights.semibold,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.sm + 4,
   },
   legendItems: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: theme.spacing.sm + 4,
   },
   legendItem: {
     flexDirection: 'row',
@@ -251,23 +217,23 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    marginRight: 6,
+    marginRight: theme.spacing.xs + 2,
   },
   legendText: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: theme.fonts.sizes.xs,
+    color: theme.colors.textSecondary,
     flex: 1,
   },
   viewAllButton: {
-    backgroundColor: '#2196F3',
-    paddingVertical: 8,
-    borderRadius: 6,
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.spacing.sm,
+    borderRadius: theme.borderRadius.sm + 2,
     alignItems: 'center',
   },
   viewAllText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
+    color: theme.colors.white,
+    fontSize: theme.fonts.sizes.sm,
+    fontWeight: theme.fonts.weights.semibold,
   },
 });
 

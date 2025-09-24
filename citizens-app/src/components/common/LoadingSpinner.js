@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { theme } from '../../config/theme';
 
-const LoadingSpinner = ({ message = 'Loading...', size = 'large', color = '#2196F3' }) => {
+const LoadingSpinner = ({ message = 'Loading...', size = 'large', color = theme.colors.primary }) => {
   return (
     <View style={styles.container}>
       <ActivityIndicator size={size} color={color} />
@@ -15,12 +16,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: theme.spacing.lg - 4,
+    backgroundColor: theme.colors.background,
   },
   message: {
-    marginTop: 10,
-    fontSize: 16,
-    color: '#666',
+    marginTop: theme.spacing.sm + 2,
+    fontSize: theme.fonts.sizes.md,
+    color: theme.colors.textSecondary,
     textAlign: 'center',
   },
 });

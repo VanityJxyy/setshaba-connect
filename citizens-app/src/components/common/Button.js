@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { theme } from '../../config/theme';
 
 const Button = ({
   title,
@@ -44,59 +45,59 @@ const Button = ({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 8,
+    borderRadius: theme.borderRadius.md,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
   primary: {
-    backgroundColor: '#2196F3',
+    backgroundColor: theme.colors.primary,
   },
   secondary: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.colors.transparent,
     borderWidth: 1,
-    borderColor: '#2196F3',
+    borderColor: theme.colors.primary,
   },
   outline: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.colors.transparent,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: theme.colors.border,
   },
   small: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: theme.spacing.sm + 4,
+    paddingVertical: theme.spacing.sm,
   },
   medium: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.sm + 4,
   },
   large: {
-    paddingHorizontal: 24,
-    paddingVertical: 16,
+    paddingHorizontal: theme.spacing.lg,
+    paddingVertical: theme.spacing.md,
   },
   disabled: {
     opacity: 0.6,
   },
   text: {
-    fontWeight: '600',
+    fontWeight: theme.fonts.weights.semibold,
   },
   primaryText: {
-    color: '#fff',
+    color: theme.colors.white,
   },
   secondaryText: {
-    color: '#2196F3',
+    color: theme.colors.primary,
   },
   outlineText: {
-    color: '#333',
+    color: theme.colors.text,
   },
   smallText: {
-    fontSize: 14,
+    fontSize: theme.fonts.sizes.sm,
   },
   mediumText: {
-    fontSize: 16,
+    fontSize: theme.fonts.sizes.md,
   },
   largeText: {
-    fontSize: 18,
+    fontSize: theme.fonts.sizes.lg,
   },
 });
 
