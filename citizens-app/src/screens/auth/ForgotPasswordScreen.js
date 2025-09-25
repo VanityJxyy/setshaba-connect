@@ -13,19 +13,26 @@ import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { theme } from '../../config/theme';
 import authService from '../../services/authService';
+import { validateEmail } from '../../utils/validation';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const updateEmail = (value) => {
+    setEmail(value);
+    if (error) {
+      setError(null);
+    }
+  };
 
   const handleForgotPassword = async () => {
-    if (!email.trim()) {
-      Alert.alert('Error', 'Please enter your email address');
-      return;
-    }
-
-    if (!email.includes('@')) {
-      Alert.alert('Error', 'Please enter a valid email address');
+    // Validate email
+    const emailError = validateEmail(email);
+    if (emailError) {
+      setError(emailError);
+      Alert.alert('Validation Error', emailError);
       return;
     }
 
@@ -72,11 +79,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
             <Input
               label="Email Address"
               value={email}
-              onChangeText={setEmail}
+              onChangeText={updateEmail}
               placeholder="Enter your email"
               keyboardType="email-address"
               autoCapitalize="none"
               autoComplete="email"
+              error={error}
             />
 
             <Button

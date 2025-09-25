@@ -54,11 +54,12 @@ const Input = ({
           <TouchableOpacity
             style={styles.eyeIcon}
             onPress={togglePasswordVisibility}
+            activeOpacity={0.7}
           >
             <Ionicons
               name={showPassword ? 'eye-off' : 'eye'}
               size={20}
-              color="#666"
+              color={theme.colors.textSecondary}
             />
           </TouchableOpacity>
         )}
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.xs,
     fontSize: theme.fonts.sizes.sm,
     color: theme.colors.error,
+    lineHeight: theme.fonts.sizes.md + 2,
   },
 });
 
