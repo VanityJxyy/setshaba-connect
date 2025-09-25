@@ -11,8 +11,10 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
+import PasswordStrengthIndicator from '../../components/common/PasswordStrengthIndicator';
 import { theme } from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
+import { validateEmail, validatePassword, validateConfirmPassword } from '../../utils/validation';
 
 const SignupScreen = ({ navigation }) => {
   const [formData, setFormData] = useState({
@@ -23,40 +25,63 @@ const SignupScreen = ({ navigation }) => {
     homeAddress: '',
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [showPasswordStrength, setShowPasswordStrength] = useState(false);
   const { signUp } = useAuth();
 
   const updateFormData = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: null }));
+    }
+    
+    // Show password strength indicator when user starts typing password
+    if (field === 'password') {
+      setShowPasswordStrength(value.length > 0);
+    }
   };
 
   const validateForm = () => {
     const { name, email, password, confirmPassword } = formData;
+    const newErrors = {};
 
     if (!name.trim()) {
-      Alert.alert('Error', 'Please enter your name');
-      return false;
+      newErrors.name = 'Please enter your name';
     }
 
-    if (!email.trim()) {
-      Alert.alert('Error', 'Please enter your email');
-      return false;
+    if (name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters long';
     }
 
-    if (!email.includes('@')) {
-      Alert.alert('Error', 'Please enter a valid email address');
-      return false;
+    // Validate email
+    const emailError = validateEmail(email);
+    if (emailError) {
+      newErrors.email = emailError;
     }
 
-    if (password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters long');
-      return false;
+    // Validate password
+    const passwordError = validatePassword(password);
+    if (passwordError) {
+      newErrors.password = passwordError;
     }
 
-    if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
-      return false;
+    // Validate confirm password
+    const confirmPasswordError = validateConfirmPassword(password, confirmPassword);
+    if (confirmPasswordError) {
+      newErrors.confirmPassword = confirmPasswordError;
     }
 
+    setErrors(newErrors);
+    
+    // If there are errors, show the first one in an alert
+    if (Object.keys(newErrors).length > 0) {
+      const firstError = Object.values(newErrors)[0];
+      Alert.alert('Validation Error', firstError);
+      return false;
+    }
+    
     return true;
   };
 
@@ -111,6 +136,7 @@ const SignupScreen = ({ navigation }) => {
               value={formData.name}
               onChangeText={(value) => updateFormData('name', value)}
               placeholder="Enter your full name"
+              error={errors.name}
             />
 
             <Input
@@ -120,6 +146,7 @@ const SignupScreen = ({ navigation }) => {
               placeholder="Enter your email"
               keyboardType="email-address"
               autoCapitalize="none"
+              error={errors.email}
             />
 
             <Input
@@ -128,7 +155,15 @@ const SignupScreen = ({ navigation }) => {
               onChangeText={(value) => updateFormData('password', value)}
               placeholder="Create a password"
               secureTextEntry
+              error={errors.password}
             />
+
+            {showPasswordStrength && (
+              <PasswordStrengthIndicator 
+                password={formData.password}
+                style={styles.passwordStrength}
+              />
+            )}
 
             <Input
               label="Confirm Password"
@@ -136,6 +171,7 @@ const SignupScreen = ({ navigation }) => {
               onChangeText={(value) => updateFormData('confirmPassword', value)}
               placeholder="Confirm your password"
               secureTextEntry
+              error={errors.confirmPassword}
             />
 
             <Input
@@ -205,6 +241,10 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginTop: theme.spacing.sm,
+  },
+  passwordStrength: {
+    marginTop: -theme.spacing.sm,
+    marginBottom: theme.spacing.sm,
   },
 });
 

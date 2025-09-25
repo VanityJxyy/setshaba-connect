@@ -13,16 +13,56 @@ import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { theme } from '../../config/theme';
 import { useAuth } from '../../hooks/useAuth';
+import { validateEmail } from '../../utils/validation';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const { signIn } = useAuth();
 
+  const updateEmail = (value) => {
+    setEmail(value);
+    if (errors.email) {
+      setErrors(prev => ({ ...prev, email: null }));
+    }
+  };
+
+  const updatePassword = (value) => {
+    setPassword(value);
+    if (errors.password) {
+      setErrors(prev => ({ ...prev, password: null }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validate email
+    const emailError = validateEmail(email);
+    if (emailError) {
+      newErrors.email = emailError;
+    }
+
+    // Validate password
+    if (!password.trim()) {
+      newErrors.password = 'Password is required';
+    }
+
+    setErrors(newErrors);
+    
+    if (Object.keys(newErrors).length > 0) {
+      const firstError = Object.values(newErrors)[0];
+      Alert.alert('Validation Error', firstError);
+      return false;
+    }
+    
+    return true;
+  };
+
   const handleLogin = async () => {
-    if (!email.trim() || !password.trim()) {
-      Alert.alert('Error', 'Please fill in all fields');
+    if (!validateForm()) {
       return;
     }
 
@@ -63,18 +103,20 @@ const LoginScreen = ({ navigation }) => {
             <Input
               label="Email"
               value={email}
-              onChangeText={setEmail}
+              onChangeText={updateEmail}
               placeholder="Enter your email"
               keyboardType="email-address"
               autoCapitalize="none"
+              error={errors.email}
             />
 
             <Input
               label="Password"
               value={password}
-              onChangeText={setPassword}
+              onChangeText={updatePassword}
               placeholder="Enter your password"
               secureTextEntry
+              error={errors.password}
             />
 
             <Button
