@@ -26,20 +26,24 @@
       },
       "package": "com.setshabaconnect.citizens",
       "permissions": [
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "API_BASE_URL": "http://localhost:3000/api",
+      "API_BASE_URL": "https://setshaba-connect-backend.onrender.com",
       "SUPABASE_URL": "https://qlxwzpnslabmckzogqit.supabase.co",
-      "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFseHd6cG5zbGFibWNrem9ncWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MDI5MzAsImV4cCI6MjA3NDI3ODkzMH0.IXiess17sPAh9XA6rcV6yijUNxyySLIS4hisJTMbTCg"
+      "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFseHd6cG5zbGFibWNrem9ncWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg3MDI5MzAsImV4cCI6MjA3NDI3ODkzMH0.IXiess17sPAh9XA6rcV6yijUNxyySLIS4hisJTMbTCg",
+      "eas": {
+        "projectId": "605d7991-96d5-4c7a-b245-093ef6083695"
+      }
     },
     "plugins": [
       "expo-location",
