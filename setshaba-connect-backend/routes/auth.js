@@ -132,7 +132,7 @@ router.post('/forgot-password', validateRequest(Joi.object({
       // Send password reset email using Supabase Auth
       const { error: resetError } = await supabaseAuth.auth.resetPasswordForEmail(email, {
         redirectTo: process.env.NODE_ENV === 'production' 
-          ? 'https://setshaba-connect-backend.onrender.com/reset-password'
+          ? 'https://setshaba-connect-backend.onrender.com/health'
           : 'http://localhost:3000/reset-password'
       });
 
