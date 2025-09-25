@@ -1,7 +1,8 @@
 // API Configuration
 import { ENV } from './constants';
 
-export const API_BASE_URL = ENV.API_BASE_URL;
+export const API_BASE_URL = 'https://setshaba-connect-backend.onrender.com';
+console.log('API_BASE_URL:', API_BASE_URL);
 
 export const API_ENDPOINTS = {
   // Auth
