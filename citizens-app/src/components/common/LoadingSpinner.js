@@ -7,7 +7,6 @@ const LoadingSpinner = ({ message = 'Loading...', size = 'large', color = theme.
     <View style={styles.container}>
       <ActivityIndicator size={size} color={color} />
       {message && <Text style={styles.message}>{message}</Text>}
-      }
     </View>
   );
 };

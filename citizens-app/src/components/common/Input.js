@@ -28,12 +28,14 @@ const Input = ({
   return (
     <View style={[styles.container, style]}>
       {label && <Text style={styles.label}>{label}</Text>}
-      }
-      <View style={[
-        styles.inputContainer,
-        isFocused && styles.focused,
-        error && styles.error,
-      ]}>
+
+      <View
+        style={[
+          styles.inputContainer,
+          isFocused && styles.focused,
+          error && styles.error,
+        ]}
+      >
         <TextInput
           style={[styles.input, inputStyle]}
           value={value}
@@ -61,8 +63,8 @@ const Input = ({
           </TouchableOpacity>
         )}
       </View>
+
       {error && <Text style={styles.errorText}>{error}</Text>}
-      }
     </View>
   );
 };
