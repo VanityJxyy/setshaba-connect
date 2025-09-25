@@ -5,27 +5,27 @@ export const API_BASE_URL = ENV.API_BASE_URL;
 
 export const API_ENDPOINTS = {
   // Auth
-  REGISTER: '/auth/register',
-  LOGIN: '/auth/login',
-  FORGOT_PASSWORD: '/auth/forgot-password',
+  REGISTER: '/api/auth/register',
+  LOGIN: '/api/auth/login',
+  FORGOT_PASSWORD: '/api/auth/forgot-password',
   
   // Users
-  USER_PROFILE: '/users/me',
-  USER_BY_ID: '/users',
+  USER_PROFILE: '/api/users/me',
+  USER_BY_ID: '/api/users',
   
   // Reports
-  REPORTS: '/reports',
-  MY_REPORTS: '/reports/mine',
-  MUNICIPALITY_REPORTS: '/reports/municipality',
-  REPORT_UPVOTE: '/reports/{id}/upvote',
+  REPORTS: '/api/reports',
+  MY_REPORTS: '/api/reports/mine',
+  MUNICIPALITY_REPORTS: '/api/reports/municipality',
+  REPORT_UPVOTE: '/api/reports/{id}/upvote',
   
   // Municipalities
-  MUNICIPALITIES: '/municipalities',
-  MUNICIPALITY_BY_ID: '/municipalities/{id}',
-  MUNICIPALITY_REPORTS: '/municipalities/{id}/reports',
+  MUNICIPALITIES: '/api/municipalities',
+  MUNICIPALITY_BY_ID: '/api/municipalities/{id}',
+  MUNICIPALITY_REPORTS: '/api/municipalities/{id}/reports',
   
   // Status Updates
-  STATUS_UPDATES: '/reports/{reportId}/status',
+  STATUS_UPDATES: '/api/reports/{reportId}/status',
 };
 
 export const REPORT_CATEGORIES = [
